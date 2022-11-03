@@ -34,7 +34,7 @@ input {
   box-sizing: border-box;
 }
 
-.grid-container {
+.container-left {
   display: flex;
 }
 
@@ -72,13 +72,7 @@ button {
   padding: 5px;
 }
 
-Creates
-  responsive
-  display
-  on
-  various
-  screen
-  sizes
+/* //Creates responsive display on various screen sizes */
   @media
   screen
   and
@@ -104,3 +98,22 @@ Creates
     margin-right: 0px;
   }
 }
+
+/*   * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(rgb(123, 184, 104), rgb(13, 87, 10));
+        font-size: 2rem;
+        font-family: sans-serif;
+        color: rgb(7, 9, 10);
+      }
+       */
+    
