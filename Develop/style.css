@@ -105,21 +105,46 @@ button {
   padding: 8px;
 }
 
+@media only screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .left {
+    margin-left: 15px;
+    margin-right: 10px;
+    width: 90%;
+    margin-bottom: 15px;
+  }
+
+  .right {
+    margin-left: 5px;
+    width: 100%;
+  }
+ 
+}
+
 /*Small devices (landscape phones, 320px and up)*/
 @media only screen and (max-width: 320px) {
   .container {
     flex-direction: column;
   }
 
+header {
+  font-size: small;
+}
+
   .left {
     margin-left: 10px;
+    margin-right: 10px;
     width: 75%;
     margin-bottom: 15px;
   }
 
   .right {
     margin-left: 5px;
-    width: 110%;
+    margin-right: 10px;
+    width: 120%;
   }
  
 }
