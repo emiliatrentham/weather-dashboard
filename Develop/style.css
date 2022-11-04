@@ -1,0 +1,125 @@
+body {
+  font-family: serif;
+  font-size: 16px;
+  line-height: 1;
+  background: rgb(
+    253,
+    254,
+    255
+  );
+  background-image: url("./skyline.jpeg");
+  -webkit-background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  border: none;
+}
+
+header {
+  background-color: hsl(
+    247,
+    64%,
+    39%
+  );
+  color: hsl(210, 50%, 99%);
+  padding: 10px;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-top: -10px;
+  margin-left: -8px;
+  margin-right: -8px;
+}
+
+input {
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  margin-top: 30px;
+}
+
+.left {
+  border: none;
+  border-radius: 15px;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.8
+  );
+  width: 25%;
+  padding: 10px;
+  border: solid white;
+  margin-left: 40px;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  /* height: 250px; */
+}
+
+.right-upper {
+  border: none;
+  border-radius: 15px;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.8
+  );
+  padding: 10px;
+  border: solid white;
+  margin-left: 10px;
+  margin-right: 40px;
+}
+
+.right-lower {
+  border-radius: 15px;
+  padding: 10px;
+  border: solid white;
+  margin-top: 15px;
+  margin-left: 10px;
+  margin-right: 40px;
+}
+
+input {
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  padding: 8px;
+}
+
+button {
+  background-color: rgb(
+    34,
+    132,
+    212
+  );
+  color: white;
+  border: none;
+  display: block;
+  width: 100%;
+  padding: 8px;
+}
+
+/*Small devices (landscape phones, 320px and up)*/
+@media only screen and (max-width: 320px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .left {
+    margin-left: 10px;
+    width: 75%;
+    margin-bottom: 15px;
+  }
+
+  .right {
+    margin-left: 5px;
+    width: 110%;
+  }
+ 
+}
