@@ -1,3 +1,5 @@
+
+
 // $(window).on('load', function () {
 //   checkLocalStorage();
 // });
@@ -25,6 +27,9 @@ function fetchCoordinates(event) {
       console.log(data[0]);
       let latitude = data[0].lat;
       let longitude = data[0].lon;
+      let apiCityName = data[0].name;
+
+      document.getElementById("api-city-name").textContent = apiCityName;
       fetchWeather(latitude, longitude);
       // saveToLocalStorage(cityInputEl);
     
@@ -48,12 +53,49 @@ function fetchWeather(lat, lon) {
     .then(function (data) {
       console.log("-----FETCHED WEATHER DATA-----")
       console.log(data); 
-      // TO DO
-      // grab forecast for next 5 days and take the values from the object representing temp, wind speed, and humidity to add to DOM
+     
+      let currentTempKelvin = data.list[0].main.temp;
+      let currentWindSpeed = data.list[0].wind.speed;
+      let currentHumidity = data.list[0].main.humidity;
+         
+      document.getElementById("temp").textContent = currentTempKelvin;
+      document.getElementById("wind-speed").textContent = currentWindSpeed;
+      document.getElementById("humidity").textContent = currentHumidity;
+     
+      var arrayList = data.list;
+      let counter = 0;
 
+        for (var i = 0; i < arrayList.length; i++) {
+
+          if (arrayList[i].dt_txt.split(' ')[1] === '12:00:00') {
+
+            counter = counter + 1;
+            let dateText = arrayList[i].dt_txt;
+            let tempKelvin = arrayList[i].main.temp;
+            let windSpeed = arrayList[i].wind.speed;
+            let humidity = arrayList[i].main.humidity;
+
+            let dateText1 = "date" + counter;
+            let tempKelvin1 = "temp" + counter;
+            let windSpeed1 = "wind-speed" + counter;
+            let humidity1 = "humidity" + counter;
+
+            document.getElementById(dateText1).textContent = dateText;
+            document.getElementById(tempKelvin1).textContent = tempKelvin;
+            document.getElementById(windSpeed1).textContent = windSpeed;
+            document.getElementById(humidity1).textContent = humidity;
+          }
+        }
   })
 }  
 citySearchButton.addEventListener("click", fetchCoordinates);
+
+// TO DO 
+// display html from script  
+// if searched city name is not existing in local storage then add it 
+// whatever is in local storage display in list on the left 
+// similar to button click event listerner - fetch value from previously searched city names
+// basically call same function as search button  and fetch from list 
 
 
 // Function to get data stored in Local Storage 
@@ -87,4 +129,6 @@ citySearchButton.addEventListener("click", fetchCoordinates);
 //       createRecentSearchBtn(citySearchButton);
 //   }
 // }
+
+
 

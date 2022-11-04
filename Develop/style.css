@@ -78,7 +78,7 @@ input {
 .right-lower {
   border-radius: 15px;
   padding: 10px;
-  border: solid white;
+  border: none;
   margin-top: 15px;
   margin-left: 10px;
   margin-right: 40px;
@@ -121,7 +121,6 @@ button {
     margin-left: 5px;
     width: 100%;
   }
- 
 }
 
 /*Small devices (landscape phones, 320px and up)*/
@@ -130,9 +129,9 @@ button {
     flex-direction: column;
   }
 
-header {
-  font-size: small;
-}
+  header {
+    font-size: small;
+  }
 
   .left {
     margin-left: 10px;
@@ -146,5 +145,4 @@ header {
     margin-right: 10px;
     width: 120%;
   }
- 
 }
