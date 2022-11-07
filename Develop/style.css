@@ -15,22 +15,14 @@ body {
 }
 
 header {
-  background-color: hsl(
-    247,
-    64%,
-    39%
-  );
-  color: hsl(210, 50%, 99%);
+  background-color: none;
+  color: white;
   padding: 10px;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   margin-top: -10px;
   margin-left: -8px;
   margin-right: -8px;
-}
-
-input {
-  box-sizing: border-box;
 }
 
 .container {
@@ -39,25 +31,26 @@ input {
 }
 
 .left {
+  
   border: none;
   border-radius: 15px;
+  color: white;
   background-color: rgba(
     255,
     255,
     255,
-    0.8
+    0.5
   );
   width: 25%;
   padding: 10px;
-  border: solid white;
   margin-left: 40px;
 }
 
 .right {
+  display: none;
   display: flex;
   flex-direction: column;
   width: 75%;
-  /* height: 250px; */
 }
 
 .right-upper {
@@ -67,41 +60,90 @@ input {
     255,
     255,
     255,
-    0.8
+    0.5
   );
   padding: 10px;
-  border: solid white;
   margin-left: 10px;
   margin-right: 40px;
+  color: white;
 }
 
-.right-lower {
+.lower-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   border-radius: 15px;
   padding: 10px;
   border: none;
   margin-top: 15px;
   margin-left: 10px;
-  margin-right: 40px;
+  color: white;
+}
+
+.card {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0
+    rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  border: none;
+  border-radius: 15px;
+  color: white;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.5
+  );
+  margin-bottom: 10px;
+  margin-left: 10px;
+  align-content: center;
+  text-align: center;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 0 8px 16px 0
+    rgba(0, 0, 0, 0.2);
+}
+
+/* Add some padding inside the card container */
+.card-padding {
+  padding: 2px 16px;
+}
+
+form {
+  display: flex;
+  flex-direction: row;
 }
 
 input {
-  display: block;
   width: 100%;
-  margin-bottom: 5px;
-  margin-top: 5px;
-  padding: 8px;
+  padding: 10px 35px 10px 15px;
+  border: none;
+  border-radius: 100px;
+  outline: none;
 }
 
-button {
-  background-color: rgb(
-    34,
-    132,
-    212
-  );
-  color: white;
+.search-button {
+  background: transparent;
   border: none;
+  outline: none;
+  margin-left: -33px;
+  margin-right: 10px;
+}
+
+.search-button img {
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
+}
+
+#delete {
+  background-color: none;
   display: block;
-  width: 100%;
+  margin: 1rem auto;
+  border: none;
+  color: rgb(107, 109, 111);
   padding: 8px;
 }
 
@@ -115,6 +157,7 @@ button {
     margin-right: 10px;
     width: 90%;
     margin-bottom: 15px;
+    color: whitesmoke;
   }
 
   .right {
@@ -123,7 +166,6 @@ button {
   }
 }
 
-/*Small devices (landscape phones, 320px and up)*/
 @media only screen and (max-width: 320px) {
   .container {
     flex-direction: column;

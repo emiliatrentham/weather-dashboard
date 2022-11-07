@@ -1,16 +1,14 @@
-
-
-// $(window).on('load', function () {
-//   checkLocalStorage();
-// });
-
 let apiKey = "83464db7448f440f2230d5eae25329a5";
+const form = document.getElementById("form");
 let cityInputEl = document.getElementById("js-city-input")
 let citySearchButton = document.getElementById("js-search-city")
+const iconImg = document.getElementById('weather-icon');
+const deleteButton = document.getElementById("delete");
+const ul = document.getElementById("ul");
 
 //Date and time format for header
 var now = moment();
-var currentDate = now.format('MMMM Do YYYY || h:mm a');
+var currentDate = now.format('dddd, MMMM Do || h:mm a');
 document.getElementById("current-day").textContent = currentDate;
 
 function fetchCoordinates(event) {
@@ -36,16 +34,8 @@ function fetchCoordinates(event) {
     })
 }
 
-//converting temperature F to Celsius 
-// function convertToC(fahrenheit) {
-//   var fTempVal = fahrenheit;
-//   var cTempVal = (fTempVal - 32) * (5 / 9);
-//   var celcius = Math.round(cTempVal * 10) / 10;
-//   return celcius;
-// }
-
 function fetchWeather(lat, lon) {
-  let apiUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey
+  let apiUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey + "&units=imperial"
   fetch(apiUrl)
   .then(function (response) {
     return response.json();
@@ -53,15 +43,19 @@ function fetchWeather(lat, lon) {
     .then(function (data) {
       console.log("-----FETCHED WEATHER DATA-----")
       console.log(data); 
-     
-      let currentTempKelvin = data.list[0].main.temp;
+      let iconCode = data.list[0].weather[0].icon;
+      let currentTempF = data.list[0].main.temp;
       let currentWindSpeed = data.list[0].wind.speed;
       let currentHumidity = data.list[0].main.humidity;
-         
-      document.getElementById("temp").textContent = currentTempKelvin;
-      document.getElementById("wind-speed").textContent = currentWindSpeed;
-      document.getElementById("humidity").textContent = currentHumidity;
-     
+      console.log(iconCode);
+      const iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
+    
+      $(".icon").html("<img src='" + iconUrl  + "'>");
+      document.getElementById("temp").textContent = currentTempF + " °F";
+      document.getElementById("wind-speed").textContent = currentWindSpeed + " MPH";
+      document.getElementById("humidity").textContent = currentHumidity + " HUM";
+    
+
       var arrayList = data.list;
       let counter = 0;
 
@@ -70,65 +64,90 @@ function fetchWeather(lat, lon) {
           if (arrayList[i].dt_txt.split(' ')[1] === '12:00:00') {
 
             counter = counter + 1;
-            let dateText = arrayList[i].dt_txt;
-            let tempKelvin = arrayList[i].main.temp;
-            let windSpeed = arrayList[i].wind.speed;
-            let humidity = arrayList[i].main.humidity;
+            let iconCode = arrayList[i].weather[0].icon;
+            let dateText = arrayList[i].dt_txt/*.format('MMMM Do YYYY || h:mm a')*/;
+            let tempFahrenheit = arrayList[i].main.temp + " °F";
+            let windSpeed = arrayList[i].wind.speed + " MPH";
+            let humidity = arrayList[i].main.humidity + " HUM";
 
+            let iconCode1 = ".icon" + counter;
             let dateText1 = "date" + counter;
-            let tempKelvin1 = "temp" + counter;
+            let tempFahrenheit1 = "temp" + counter;
             let windSpeed1 = "wind-speed" + counter;
             let humidity1 = "humidity" + counter;
 
+            console.log(iconCode)
+
+            // TO DO display correct icon in cards
             document.getElementById(dateText1).textContent = dateText;
-            document.getElementById(tempKelvin1).textContent = tempKelvin;
+            document.getElementById(tempFahrenheit1).textContent = tempFahrenheit;
             document.getElementById(windSpeed1).textContent = windSpeed;
             document.getElementById(humidity1).textContent = humidity;
           }
         }
+
   })
 }  
+
+// TO DO save data to local storage and display under recent searches + hook up delete button
+let recentSearches;
+if (localStorage.recentSearches && localStorage.recentSearches != "") {
+  recentSearches = JSON.parse(localStorage.recentSearches);
+} else {
+  recentSearches = [];
+}
+
+const makeListItem = (text, parent) => {
+  let listItem = document.createElement("li");
+  listItem.textContent = text;
+  listItem.className = "list-group-item";
+  parent.appendChild(listItem);
+};
+
+recentSearches.forEach(element => {
+  makeListItem(element, ul);
+});
+
+const isDuplicateValue = (arr, text) => {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] == text) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
+form.addEventListener("js-search-city", event => {
+  event.preventDefault();
+  if (
+    cityInputEl.value == "" ||
+    isDuplicateValue(recentSearches, cityInputEl.value)
+  ) {
+    return;
+  } else {
+    recentSearches.push(cityInputEl.value);
+    makeListItem(cityInputEl.value, ul);
+    localStorage.recentSearches = JSON.stringify(recentSearches);
+    cityInputEl.value = "";
+  }
+});
+
+deleteButton.addEventListener("click", () => {
+  localStorage.clear();
+  recentSearches = [];
+  cityInputEl.value = "";
+  // I use querySelectorAll because it returns a static collection
+  let arr = document.querySelectorAll("li");
+  // I use the static collection for iteration
+  for (let i = 0; i < arr.length; i++) {
+    arr[i].remove();
+  }
+});
+
+
 citySearchButton.addEventListener("click", fetchCoordinates);
 
-// TO DO 
-// display html from script  
-// if searched city name is not existing in local storage then add it 
-// whatever is in local storage display in list on the left 
-// similar to button click event listerner - fetch value from previously searched city names
-// basically call same function as search button  and fetch from list 
-
-
-// Function to get data stored in Local Storage 
-// function checkLocalStorage() {
-//   var storedData = localStorage.getItem('queries');
-//   var dataArray = [];
-//   if (!storedData) {
-//       console.log("no data stored");
-//   } else {
-//       storedData.trim();
-//       dataArray = storedData.split(',');
-//       for (var i = 0; i < dataArray.length; i++) {
-//           createRecentSearchBtn(dataArray[i]);
-//       }
-//   }
-// };
-
-// // Function to Set data in Local storage
-// function saveToLocalStorage(citySearchButton) {
-//   var data = localStorage.getItem('queries');
-//   if (data) {
-//       console.log(data, citySearchButton)
-
-//   } else {
-//       data = citySearchButton;
-//       localStorage.setItem('queries', data);
-//   }
-//   if (data.indexOf(citySearchButton) === -1) {
-//       data = data + ',' + citySearchButton;
-//       localStorage.setItem('queries', data);
-//       createRecentSearchBtn(citySearchButton);
-//   }
-// }
 
 
 

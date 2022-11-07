@@ -6,92 +6,111 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>06-Challenge</title>
+  <!-- css -->
   <link rel="stylesheet" href="Develop/style.css" />
+  <!-- <link rel="stylesheet" href="font/Rimouski.css" -->
   <script src="https://code.jquery.com/jquery.js"></script>
 </head>
 
 <body>
-
   <header>
     <h1>Weather Dashboard</h1>
+    <span id="current-day"></span>
   </header>
 
   <div class="container">
     <div class="left">
-      <form>
-        <h2>Search for a City:</h2>
-        <input type="text" id="js-city-input"></input>
-        <button id="js-search-city">Search</button>
+      <h2>Search for a City:</h2>
+      <form id="form">
+        <input type="search" class="search-field" id="js-city-input" aria-label="Search" />
+        <button type="submit" class="search-button" id="js-search-city"> <img src="./Assets/search.png"></button>
       </form>
+      <h2 style="font-size: 20px; padding: 1rem;">Recent Searches</h2>
+      <button id="delete">Clear Search History</button>
+
+      <ul class="list-group list-group-flush" id="ul">
+      </ul>
     </div>
 
     <!-- Weather Information Column -->
     <div class="right">
-
-      <section class="col-12 box right-upper" id="cityList">
+      <section class="right-upper" id="cityList">
         <div>
-          <span id="city-name" class="city">City Name:</span>
+          <span id="city-name" class="city"></span>
           <span id="api-city-name" class="text-center"></span>
-      </div>
-      <span id="current-day" class="text-center"></span>
-      <div>
-          <div><span id="date">---</span></div>
-          <div><span id="temp"></span></div>
-          <div><span id="wind-speed"></span></div>
+        </div>
+        <span></span></span>
+
+        <div class="weather-container">
+          <div><span class="icon"></span></div>
+          <div><span id="date"></span></div>
+          <div>
+            <p><span id="temp"></span>
+          </div>
+          <div><span id="wind-speed"></span></p>
+          </div>
           <div><span id="humidity"></span></div>
-      </div>
+        </div>
       </section>
 
-
-      <div class="right-lower">
-        <div class="col-10 list">
+      <div class="lower-container">
+        <div class="list">
           <h3>5-Day Forecast</h3>
           <!-- 5 Days Weather Forcast list here -->
-          <div>
-              <div><span id="date1">---</span></div>
+          <div class="card">
+            <div class="card-padding">
+              <div><span id="date1"></span></div>
+              <div><span class="icon"></span></div>
               <div><span id="temp1"></span></div>
               <div><span id="wind-speed1"></span></div>
               <div><span id="humidity1"></span></div>
+            </div>
           </div>
           <div></div>
-          <div>
-              <div><span id="date2">---</span></div>
+          <div class="card">
+            <div class="card-padding">
+              <div><span id="date2"></span></div>
+              <div><span class="icon"></span></div>
               <div><span id="temp2"></span></div>
               <div><span id="wind-speed2"></span></div>
               <div><span id="humidity2"></span></div>
+            </div>
           </div>
           <div></div>
-          <div>
-              <div><span id="date3">---</span></div>
+          <div class="card">
+            <div class="card-padding">
+              <div><span id="date3"></span></div>
+              <div><span class="icon"></span></div>
               <div><span id="temp3"></span></div>
               <div><span id="wind-speed3"></span></div>
               <div><span id="humidity3"></span></div>
+            </div>
           </div>
           <div></div>
-          <div>
-              <div><span id="date4">---</span></div>
+          <div class="card">
+            <div class="card-padding">
+              <div><span id="date4"></span></div>
+              <div><span class="icon"></span></div>
               <div><span id="temp4"></span></div>
               <div><span id="wind-speed4"></span></div>
               <div><span id="humidity4"></span></div>
+            </div>
           </div>
           <div></div>
-          <div>
-              <div><span id="date5">---</span></div>
+          <div class="card">
+            <div class="card-padding">
+              <div><span id="date5"></span></div>
+              <div><span class="icon"></span></div>
               <div><span id="temp5"></span></div>
               <div><span id="wind-speed5"></span></div>
               <div><span id="humidity5"></span></div>
+            </div>
           </div>
         </div>
       </div>
 
-
-
-
-
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-
       <script src="./Develop/script.js"></script>
 
 </body>
-
 </html>
