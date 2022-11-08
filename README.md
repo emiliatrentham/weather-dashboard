@@ -7,7 +7,7 @@
 ## Table of Contents
 
 - [Description](#description)
-- [Photos](#photos)
+<!-- - [Photos](#photos) -->
 - [Credits](#credits)
 - [License](#license)
 - [Deployed Page](#deployed-page)

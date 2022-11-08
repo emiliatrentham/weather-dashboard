@@ -26,11 +26,11 @@ function fetchCoordinates(event) {
       let latitude = data[0].lat;
       let longitude = data[0].lon;
       let apiCityName = data[0].name;
+      let apiCityState = data[0].state;
+      let apiCityCountry = data[0].country;
 
-      document.getElementById("api-city-name").textContent = apiCityName;
+      document.getElementById("api-city-name").textContent = apiCityName + ", " + apiCityState + ", " + apiCityCountry;
       fetchWeather(latitude, longitude);
-      // saveToLocalStorage(cityInputEl);
-    
     })
 }
 
@@ -45,15 +45,23 @@ function fetchWeather(lat, lon) {
       console.log(data); 
       let iconCode = data.list[0].weather[0].icon;
       let currentTempF = data.list[0].main.temp;
+
+      let currentTempMin = data.list[0].main.temp_min;
+      console.log(currentTempMin)
+   
+      let currentTempMax = data.list[0].main.temp_max;
+      console.log(currentTempMax)
+
       let currentWindSpeed = data.list[0].wind.speed;
       let currentHumidity = data.list[0].main.humidity;
-      console.log(iconCode);
-      const iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
+      let iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
     
       $(".icon").html("<img src='" + iconUrl  + "'>");
-      document.getElementById("temp").textContent = currentTempF + " °F";
-      document.getElementById("wind-speed").textContent = currentWindSpeed + " MPH";
-      document.getElementById("humidity").textContent = currentHumidity + " HUM";
+      document.getElementById("temp").textContent = "Current Temperature: " + currentTempF + " °F";
+      document.getElementById("min").textContent = "Low: " + currentTempMin + " °F";
+      document.getElementById("max").textContent = "High: " + currentTempMax + " °F";
+      document.getElementById("wind-speed").textContent = "Wind Speed: " + currentWindSpeed + " miles per hour";
+      document.getElementById("humidity").textContent = "Humidity: " + currentHumidity + "%";
     
 
       var arrayList = data.list;
@@ -144,7 +152,6 @@ deleteButton.addEventListener("click", () => {
     arr[i].remove();
   }
 });
-
 
 citySearchButton.addEventListener("click", fetchCoordinates);
 
