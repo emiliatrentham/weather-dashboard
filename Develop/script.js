@@ -1,10 +1,12 @@
 let apiKey = "83464db7448f440f2230d5eae25329a5";
 const form = document.getElementById("form");
-let cityInputEl = document.getElementById("js-city-input")
-let citySearchButton = document.getElementById("js-search-city")
+let cityInputEl = document.getElementById("js-city-input");
+let citySearchButton = document.getElementById("js-search-city");
+let recentSearchEl = document.querySelector(".recent-searches");
 const iconImg = document.getElementById('weather-icon');
 const deleteButton = document.getElementById("delete");
 const ul = document.getElementById("ul");
+let searcHistory = [];
 
 //Date and time format for header
 var now = moment();
@@ -14,6 +16,7 @@ document.getElementById("current-day").textContent = currentDate;
 function fetchCoordinates(event) {
   event.preventDefault();
   let userInput = cityInputEl.value; //gets input value
+  appendHistory(userInput);
   var apiUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + userInput + "&limit=1&appid=" + apiKey
   fetch(apiUrl)
     .then(function (response) {
@@ -98,60 +101,31 @@ function fetchWeather(lat, lon) {
 }  
 
 // TO DO save data to local storage and display under recent searches + hook up delete button
-let recentSearches;
-if (localStorage.recentSearches && localStorage.recentSearches != "") {
-  recentSearches = JSON.parse(localStorage.recentSearches);
-} else {
-  recentSearches = [];
+function appendHistory(search) {
+  searcHistory.push(search);
+  localStorage.setItem("history", JSON.stringify(searcHistory));
+  getSearches();
+  // renderSearchHistory();
 }
 
-const makeListItem = (text, parent) => {
-  let listItem = document.createElement("li");
-  listItem.textContent = text;
-  listItem.className = "list-group-item";
-  parent.appendChild(listItem);
+function getSearches() {
+  let storedHistory = localStorage.getItem("history");
+  if (storedHistory) {
+    searcHistory = JSON.parse(storedHistory);
+  }
+  // renderSearchHistory();
 };
 
-recentSearches.forEach(element => {
-  makeListItem(element, ul);
-});
 
-const isDuplicateValue = (arr, text) => {
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] == text) {
-      return true;
-    }
-  }
-
-  return false;
-};
-
-form.addEventListener("js-search-city", event => {
-  event.preventDefault();
-  if (
-    cityInputEl.value == "" ||
-    isDuplicateValue(recentSearches, cityInputEl.value)
-  ) {
-    return;
-  } else {
-    recentSearches.push(cityInputEl.value);
-    makeListItem(cityInputEl.value, ul);
-    localStorage.recentSearches = JSON.stringify(recentSearches);
-    cityInputEl.value = "";
-  }
-});
-
-deleteButton.addEventListener("click", () => {
-  localStorage.clear();
-  recentSearches = [];
-  cityInputEl.value = "";
-  // I use querySelectorAll because it returns a static collection
-  let arr = document.querySelectorAll("li");
-  // I use the static collection for iteration
-  for (let i = 0; i < arr.length; i++) {
-    arr[i].remove();
-  }
-});
+// function renderSearchHistory() {
+//   recentSearchEl.innerHTML = "";
+//   for (let i = 0; i < searcHistory.length; i++) {
+//     var recentSearchesButton = document.createElement("button");
+//     recentSearchesButton.setAttribute("data-search", searcHistory[i]);
+//     recentSearchesButton.textContent = searcHistory[i];
+//     recentSearchEl.append(recentSearchesButton);
+//   }
+// }
 
 citySearchButton.addEventListener("click", fetchCoordinates);
 

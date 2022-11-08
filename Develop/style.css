@@ -63,7 +63,7 @@ header {
     0.5
   );
   padding: 10px;
-  margin-left: 25px;
+  margin-left: 20px;
   margin-right: 10px;
   color: white;
 }
@@ -240,11 +240,9 @@ h2 {
 
   .weather-container-left {
     margin-left: 0%;
-    color: brown;
   }
 
   .weather-container-right {
     margin-left: -50px;
-    color: brown;
   }
 }
