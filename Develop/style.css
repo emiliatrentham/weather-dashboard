@@ -30,7 +30,7 @@ header {
   margin-top: 30px;
 }
 
-.left { 
+.left {
   border: none;
   border-radius: 15px;
   color: white;
@@ -74,17 +74,17 @@ header {
   align-items: center;
 }
 
-.weather-container-city{
+.weather-container-city {
   margin-top: 10px;
   align-items: center;
-  text-align: center; 
+  text-align: center;
 }
 
 .weather-container-left {
-float: left;
-margin-bottom: 20px;
-margin-left: 200px;
-margin-top: 10px;
+  float: left;
+  margin-bottom: 20px;
+  margin-left: 200px;
+  margin-top: 10px;
 }
 
 .weather-container-right {
@@ -102,7 +102,7 @@ margin-top: 10px;
   margin-left: 10px;
   color: white;
   width: 90%;
-  background-color:none;
+  background-color: none;
 }
 
 .list {
@@ -118,7 +118,12 @@ margin-top: 10px;
   transition: 0.3s;
   border: none;
   color: white;
-  background-color: rgba(86, 83, 83, 0.5);
+  background-color: rgba(
+    86,
+    83,
+    83,
+    0.5
+  );
   margin-bottom: 10px;
   margin-left: 10px;
   align-content: center;
@@ -165,14 +170,14 @@ input {
 }
 
 .recent-searches {
-  font-size: 20px; 
+  font-size: 20px;
   padding: 1rem;
   text-align: center;
   color: white;
 }
 
 h2 {
-  font-size: 20px; 
+  font-size: 20px;
   padding: 1rem;
   text-align: start;
   color: whitesmoke;
