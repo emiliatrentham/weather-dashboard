@@ -45,19 +45,13 @@ function fetchWeather(lat, lon) {
   })
     .then(function (data) {
       console.log("-----FETCHED WEATHER DATA-----")
-      console.log(data); 
       let iconCode = data.list[0].weather[0].icon;
       let currentTempF = data.list[0].main.temp;
-
       let currentTempMin = data.list[0].main.temp_min;
-      console.log(currentTempMin)
-   
       let currentTempMax = data.list[0].main.temp_max;
-      console.log(currentTempMax)
-
       let currentWindSpeed = data.list[0].wind.speed;
       let currentHumidity = data.list[0].main.humidity;
-      let iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
+      let iconUrl = "https://openweathermap.org/img/w/" + iconCode + ".png";
     
       $(".icon").html("<img src='" + iconUrl  + "'>");
       document.getElementById("temp").textContent = "Current Temperature: " + currentTempF + " °F";
@@ -65,7 +59,6 @@ function fetchWeather(lat, lon) {
       document.getElementById("max").textContent = "High: " + currentTempMax + " °F";
       document.getElementById("wind-speed").textContent = "Wind Speed: " + currentWindSpeed + " miles per hour";
       document.getElementById("humidity").textContent = "Humidity: " + currentHumidity + "%";
-    
 
       var arrayList = data.list;
       let counter = 0;
@@ -86,8 +79,6 @@ function fetchWeather(lat, lon) {
             let tempFahrenheit1 = "temp" + counter;
             let windSpeed1 = "wind-speed" + counter;
             let humidity1 = "humidity" + counter;
-
-            console.log(iconCode)
 
             // TO DO display correct icon in cards
             document.getElementById(dateText1).textContent = dateText;
@@ -128,11 +119,23 @@ function renderSearchHistory() {
   }
 }
 
-//TO DO
-// Listen for clicks on what holds button, filter out clicks on button data-search, tell click handler which button was clicked using data attributes and event delegation
-// Hook up delete button
-citySearchButton.addEventListener("click", fetchCoordinates);
 
+var searchHistoryHandler =  recentSearchEl.addEventListener("click", function (event) {
+  var element = event.target;
+
+  if (element.matches("li") && event.target.contains(".recent-searches")) {
+    var searchedCity = event.target.getAttribute(".api-city-name");
+    fetchCoordinates(searchedCity);
+  }
+});
+
+//TO DO
+// Listen for clicks on what holds button, filter out clicks on button data-search, 
+//tell click handler which button was clicked using data attributes and event delegation
+// Hook up delete button
+  
+citySearchButton.addEventListener("click", fetchCoordinates);
+recentSearchEl.addEventListener("click", searchHistoryHandler);
 
 
 
