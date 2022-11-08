@@ -100,12 +100,11 @@ function fetchWeather(lat, lon) {
   })
 }  
 
-// TO DO save data to local storage and display under recent searches + hook up delete button
 function appendHistory(search) {
   searcHistory.push(search);
   localStorage.setItem("history", JSON.stringify(searcHistory));
   getSearches();
-  // renderSearchHistory();
+  
 }
 
 function getSearches() {
@@ -113,20 +112,25 @@ function getSearches() {
   if (storedHistory) {
     searcHistory = JSON.parse(storedHistory);
   }
-  // renderSearchHistory();
+  renderSearchHistory();
 };
 
 
-// function renderSearchHistory() {
-//   recentSearchEl.innerHTML = "";
-//   for (let i = 0; i < searcHistory.length; i++) {
-//     var recentSearchesButton = document.createElement("button");
-//     recentSearchesButton.setAttribute("data-search", searcHistory[i]);
-//     recentSearchesButton.textContent = searcHistory[i];
-//     recentSearchEl.append(recentSearchesButton);
-//   }
-// }
+function renderSearchHistory() {
+  recentSearchEl.innerHTML = "";
+  for (let i = 0; i < searcHistory.length; i++) {
+    var recentSearchesButton = document.createElement("button");
+    var recentSearchesLi = document.createElement("li");
+    recentSearchesLi.append(recentSearchesButton);
+    recentSearchesButton.setAttribute("data-search", searcHistory[i]);
+    recentSearchesButton.textContent = searcHistory[i];
+    recentSearchEl.append(recentSearchesLi);
+  }
+}
 
+//TO DO
+// Listen for clicks on what holds button, filter out clicks on button data-search, tell click handler which button was clicked using data attributes and event delegation
+// Hook up delete button
 citySearchButton.addEventListener("click", fetchCoordinates);
 
 
