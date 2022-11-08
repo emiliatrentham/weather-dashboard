@@ -7,7 +7,7 @@ body {
     254,
     255
   );
-  background-image: url("./Assets/skyline.jpeg");
+  background-image: url("/Develop/Assets/skyline.png");
   -webkit-background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
