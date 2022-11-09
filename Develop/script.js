@@ -73,14 +73,14 @@ function fetchWeather(lat, lon) {
             let tempFahrenheit = arrayList[i].main.temp + " °F";
             let windSpeed = arrayList[i].wind.speed + " MPH";
             let humidity = arrayList[i].main.humidity + " HUM";
-
-            let iconCode1 = ".icon" + counter;
+            let iconUrl = "https://openweathermap.org/img/w/" + iconCode + ".png"; 
             let dateText1 = "date" + counter;
             let tempFahrenheit1 = "temp" + counter;
             let windSpeed1 = "wind-speed" + counter;
             let humidity1 = "humidity" + counter;
-
-            // TO DO display correct icon in cards
+            let iconCode1 = ".icon" + counter;
+            
+            $(iconCode1).html("<img src='" + iconUrl  + "'>");
             document.getElementById(dateText1).textContent = dateText;
             document.getElementById(tempFahrenheit1).textContent = tempFahrenheit;
             document.getElementById(windSpeed1).textContent = windSpeed;
@@ -119,23 +119,24 @@ function renderSearchHistory() {
   }
 }
 
-
 var searchHistoryHandler =  recentSearchEl.addEventListener("click", function (event) {
   var element = event.target;
 
-  if (element.matches("li") && event.target.contains(".recent-searches")) {
-    var searchedCity = event.target.getAttribute(".api-city-name");
-    fetchCoordinates(searchedCity);
+  if (element.matches("button")) {
+    var searchedCity = event.target.getAttribute("data-search");
+    console.log(searchedCity)
+    fetchWeather(searchedCity);
   }
 });
-
-//TO DO
-// Listen for clicks on what holds button, filter out clicks on button data-search, 
-//tell click handler which button was clicked using data attributes and event delegation
-// Hook up delete button
   
+function clearSearchHistory() {
+  localStorage.clear(searcHistory);
+  recentSearchEl.textContent = "";
+}
+
+deleteButton.addEventListener("click", clearSearchHistory);
 citySearchButton.addEventListener("click", fetchCoordinates);
-recentSearchEl.addEventListener("click", searchHistoryHandler);
+// recentSearchEl.addEventListener("click", searchHistoryHandler);
 
 
 
