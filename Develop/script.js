@@ -1,3 +1,4 @@
+// DOM hooks
 let apiKey = "83464db7448f440f2230d5eae25329a5";
 const form = document.getElementById("form");
 let cityInputEl = document.getElementById("js-city-input");
@@ -8,14 +9,15 @@ const deleteButton = document.getElementById("delete");
 const ul = document.getElementById("ul");
 let searcHistory = [];
 
-//Date and time format for header
+// Header date and time format 
 var now = moment();
 var currentDate = now.format('dddd, MMMM Do || h:mm a');
 document.getElementById("current-day").textContent = currentDate;
 
+// Get input value
 function fetchCoordinates(event) {
   event.preventDefault();
-  let userInput = cityInputEl.value; //gets input value
+  let userInput = cityInputEl.value; 
   appendHistory(userInput);
   var apiUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + userInput + "&limit=1&appid=" + apiKey
   fetch(apiUrl)
@@ -60,16 +62,15 @@ function fetchWeather(lat, lon) {
       document.getElementById("wind-speed").textContent = "Wind Speed: " + currentWindSpeed + " miles per hour";
       document.getElementById("humidity").textContent = "Humidity: " + currentHumidity + "%";
 
-      var arrayList = data.list;
+      let arrayList = data.list;
       let counter = 0;
 
         for (var i = 0; i < arrayList.length; i++) {
 
           if (arrayList[i].dt_txt.split(' ')[1] === '12:00:00') {
-
             counter = counter + 1;
             let iconCode = arrayList[i].weather[0].icon;
-            let dateText = arrayList[i].dt_txt/*.format('MMMM Do YYYY || h:mm a')*/;
+            let dateText = arrayList[i].dt_txt;
             let tempFahrenheit = arrayList[i].main.temp + " °F";
             let windSpeed = arrayList[i].wind.speed + " MPH";
             let humidity = arrayList[i].main.humidity + " HUM";
@@ -79,9 +80,9 @@ function fetchWeather(lat, lon) {
             let windSpeed1 = "wind-speed" + counter;
             let humidity1 = "humidity" + counter;
             let iconCode1 = ".icon" + counter;
-            
+
             $(iconCode1).html("<img src='" + iconUrl  + "'>");
-            document.getElementById(dateText1).textContent = dateText;
+            document.getElementById(dateText1).textContent = moment(dateText).format("MMMM Do");
             document.getElementById(tempFahrenheit1).textContent = tempFahrenheit;
             document.getElementById(windSpeed1).textContent = windSpeed;
             document.getElementById(humidity1).textContent = humidity;
@@ -106,7 +107,6 @@ function getSearches() {
   renderSearchHistory();
 };
 
-
 function renderSearchHistory() {
   recentSearchEl.innerHTML = "";
   for (let i = 0; i < searcHistory.length; i++) {
@@ -119,24 +119,47 @@ function renderSearchHistory() {
   }
 }
 
+function displaySearchHistory(searchedCity) {
+  let userInput = searchedCity;
+  var apiUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + userInput + "&limit=1&appid=" + apiKey
+  fetch(apiUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log("-----FETCHED GEOCODE DATA-----")
+      console.log(data);
+      console.log(data[0]);
+      let latitude = data[0].lat;
+      let longitude = data[0].lon;
+      let apiCityName = data[0].name;
+      let apiCityState = data[0].state;
+      let apiCityCountry = data[0].country;
+
+      document.getElementById("api-city-name").textContent = apiCityName + ", " + apiCityState + ", " + apiCityCountry;
+      fetchWeather(latitude, longitude);
+    })
+}
+
 var searchHistoryHandler =  recentSearchEl.addEventListener("click", function (event) {
   var element = event.target;
 
   if (element.matches("button")) {
     var searchedCity = event.target.getAttribute("data-search");
     console.log(searchedCity)
-    fetchWeather(searchedCity);
+    displaySearchHistory(searchedCity);
   }
 });
-  
+
 function clearSearchHistory() {
+  searcHistory = [];
   localStorage.clear(searcHistory);
   recentSearchEl.textContent = "";
 }
 
 deleteButton.addEventListener("click", clearSearchHistory);
 citySearchButton.addEventListener("click", fetchCoordinates);
-// recentSearchEl.addEventListener("click", searchHistoryHandler);
+
 
 
 

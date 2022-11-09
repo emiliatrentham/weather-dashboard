@@ -125,9 +125,10 @@ header {
     0.5
   );
   margin-left: 10px;
+  margin-left: 10px;
+  margin-top: 10px;
   align-content: center;
   text-align: center;
-
 }
 
 /* On mouse-over, add a deeper shadow */
