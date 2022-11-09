@@ -32,7 +32,7 @@ As a traveler, I want to see the weather outlook for multiple cities so that I c
 Please refer to the LICENSE in the repo.
 
 ## Photos
-[Working Application Screenshot!](./Assets/project-screenshot.png)
+[Working Application Screenshot!](./Develop/Assets/project-screenshot.png)
 
 ## Contact
 
