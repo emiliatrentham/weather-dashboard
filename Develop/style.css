@@ -311,6 +311,7 @@ li {
 
   .card {
     margin-left: 5px;
+    margin-right: -10px;
     width: 90%;
     margin-bottom: 15px;
   }
@@ -318,7 +319,7 @@ li {
   .left {
     margin-top: 100px;
     margin-left: 25px;
-    width: 85%;
+    width: 86%;
     margin-bottom: 15px;
     color: whitesmoke;
   }
@@ -326,6 +327,12 @@ li {
   .right {
     margin-left: 5px;
     width: 90%;
+  }
+
+  .right-upper {
+    margin-left: 5px;
+    width: 95%;
+    margin-left: 20px;
   }
 
   .weather-container-left {
@@ -368,10 +375,6 @@ li {
     width: 100%;
     margin-bottom: 15px;
     align-self: center;
-  }
-
-  .right {
-    margin-left: 50px;
   }
 
   .cards {
