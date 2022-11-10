@@ -7,17 +7,46 @@ let recentSearchEl = document.querySelector(".recent-searches");
 const iconImg = document.getElementById('weather-icon');
 const deleteButton = document.getElementById("delete");
 const ul = document.getElementById("ul");
+let cityInputElSidebar = document.getElementById("js-city-input-sidebar");
+let citySearchButtonSidebar = document.getElementById("js-search-city-sidebar");
 let searcHistory = [];
+
+const modal = document.querySelector(".modal");
+const modalTwo = document.querySelector(".modalTwo");
+const overlay = document.querySelector(".overlay");
+const openModalBtn = document.querySelector(".btn-open");
+const closeModalBtn = document.querySelector(".btn-close");
 
 // Header date and time format 
 var now = moment();
 var currentDate = now.format('dddd, MMMM Do || h:mm a');
 document.getElementById("current-day").textContent = currentDate;
 
+// function myFunction() {
+//   var element = document.getElementById("form");
+//   element.classList.remove("hidden");
+// }
+
+const openModal = function (event) {
+  event.preventDefault();
+  modal.classList.remove("hidden");
+  overlay.classList.add("hidden");
+  cityInputEl.classList.add("hidden");
+  citySearchButton.classList.add("hidden");
+};
+citySearchButton.addEventListener("click", openModal);
+
+const closeModal = function () {
+  modal.classList.add("hidden");
+  overlay.classList.add("hidden");
+};
+overlay.addEventListener("click", closeModal);
+
+
 // Get input value
 function fetchCoordinates(event) {
   event.preventDefault();
-  let userInput = cityInputEl.value; 
+  let userInput = cityInputEl.value || cityInputElSidebar.value; 
   appendHistory(userInput);
   var apiUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + userInput + "&limit=1&appid=" + apiKey
   fetch(apiUrl)
@@ -36,6 +65,7 @@ function fetchCoordinates(event) {
 
       document.getElementById("api-city-name").textContent = apiCityName + ", " + apiCityState + ", " + apiCityCountry;
       fetchWeather(latitude, longitude);
+      cityInputEl.value = "";
     })
 }
 
@@ -88,8 +118,7 @@ function fetchWeather(lat, lon) {
             document.getElementById(humidity1).textContent = humidity;
           }
         }
-
-  })
+    })
 }  
 
 function appendHistory(search) {
@@ -159,6 +188,8 @@ function clearSearchHistory() {
 
 deleteButton.addEventListener("click", clearSearchHistory);
 citySearchButton.addEventListener("click", fetchCoordinates);
+citySearchButtonSidebar.addEventListener("click", fetchCoordinates);
+
 
 
 

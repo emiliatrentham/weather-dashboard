@@ -1,4 +1,13 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter",
+    sans-serif;
+}
+
 body {
+  position: relative;
   font-family: serif;
   font-size: 16px;
   line-height: 1;
@@ -12,48 +21,123 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-weight: 600;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.7
+  );
+  padding: 10px;
+  color: #777;
+  z-index: 2;
+  margin-top: 10px;
+}
+
+.btn-open {
+  position: absolute;
+  color: #777;
+  display: inline-block;
+  padding: 0.8rem 1.4rem;
+  font-weight: 700;
+  background-color: none;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 1em;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.7
+  );
+}
+
+.btn-close {
+  transform: translate(
+    10px,
+    -20px
+  );
+  padding: 0.5rem 0.7rem;
+  background: #eee;
+  border-radius: 50%;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(
+    0,
+    0,
+    0,
+    0.5
+  );
+  backdrop-filter: blur(3px);
+  z-index: 1;
+}
+
+.modal {
+  z-index: 2;
+}
+
+.hidden {
+  display: none;
 }
 
 header {
   background-color: none;
-  color: white;
+  color: azure;
   padding: 10px;
   text-align: center;
-  margin-bottom: 15px;
-  margin-top: -10px;
-  margin-left: -8px;
-  margin-right: -8px;
+  margin-bottom: 25px;
+  margin-top: -150px;
+  font-size: large;
+  z-index: 2;
 }
 
 .container {
+  width: 100%;
   display: flex;
-  margin-top: 30px;
+  margin-top: 50px;
 }
 
 .left {
   border: none;
   border-radius: 15px;
   color: white;
+  background-color: none;
+  width: 25%;
+  padding: 10px;
   background-color: rgba(
     255,
     255,
     255,
     0.5
   );
-  width: 25%;
-  padding: 10px;
-  margin-left: 40px;
 }
 
 .right {
   display: none;
   display: flex;
   flex-direction: column;
-  width: 75%;
+  width: 80%;
 }
 
 .right-upper {
-  width: 85%;
   border: none;
   border-radius: 15px;
   background-color: rgba(
@@ -72,10 +156,11 @@ header {
   display: block;
   justify-content: space-around;
   align-items: center;
+  margin-top: 100px;
 }
 
 .weather-container-city {
-  margin-top: 10px;
+  margin-top: -60px;
   align-items: center;
   text-align: center;
 }
@@ -83,14 +168,14 @@ header {
 .weather-container-left {
   float: left;
   margin-bottom: 20px;
-  margin-left: 200px;
+  margin-left: 100px;
   margin-top: 10px;
 }
 
 .weather-container-right {
   float: right;
   margin-bottom: 20px;
-  margin-right: 200px;
+  margin-right: 100px;
   margin-top: 10px;
 }
 
@@ -99,9 +184,8 @@ header {
   padding: 10px;
   border: none;
   margin-top: 15px;
-  margin-left: 10px;
   color: white;
-  width: 90%;
+  width: 115%;
   background-color: none;
 }
 
@@ -144,17 +228,23 @@ header {
   padding: 2px 16px;
 }
 
-form {
+.search-input {
   display: flex;
   flex-direction: row;
 }
 
+.sidebarBtn {
+  margin-top: 15px;
+}
+
 input {
+  margin-left: 15px;
   width: 100%;
   padding: 10px 35px 10px 15px;
   border: none;
   border-radius: 100px;
   outline: none;
+  z-index: 2;
 }
 
 .search-button {
@@ -163,6 +253,7 @@ input {
   outline: none;
   margin-left: -33px;
   margin-right: 10px;
+  margin-top: 15px;
 }
 
 .search-button img {
@@ -172,6 +263,7 @@ input {
 }
 
 .recent-searches {
+  text-align: center;
   font-size: 20px;
   padding: 1rem;
   text-align: center;
@@ -182,11 +274,20 @@ h2 {
   font-size: 20px;
   padding: 1rem;
   text-align: start;
-  color: white;
+  color: grey;
 }
 
-h3 {
-color: rgb(104, 91, 91);
+.three {
+  color: azure;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.five {
+  text-align: start;
+  color: grey;
+  margin-bottom: 10px;
+  margin-left: 10px;
 }
 
 #delete {
@@ -208,25 +309,47 @@ li {
     flex-direction: column;
   }
 
-  .left {
-    margin-left: 15px;
-    margin-right: 10px;
+  .card {
+    margin-left: 5px;
     width: 90%;
+    margin-bottom: 15px;
+  }
+
+  .left {
+    margin-top: 100px;
+    margin-left: 25px;
+    width: 85%;
     margin-bottom: 15px;
     color: whitesmoke;
   }
 
   .right {
     margin-left: 5px;
-    width: 100%;
+    width: 90%;
   }
 
   .weather-container-left {
-    margin-left: 50px;
+    margin-left: 70px;
   }
 
   .weather-container-right {
-    margin-right: 50px;
+    margin-right: 70px;
+  }
+
+  .three {
+    margin-top: 15px;
+    color: azure;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+  }
+
+  .five {
+    color: azure;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    margin-bottom: 10px;
   }
 }
 
@@ -240,23 +363,42 @@ li {
   }
 
   .left {
-    margin-left: 10px;
+    margin-left: 30px;
     margin-right: 10px;
-    width: 75%;
+    width: 100%;
     margin-bottom: 15px;
+    align-self: center;
   }
 
   .right {
-    margin-left: 5px;
-    margin-right: 10px;
-    width: 120%;
+    margin-left: 50px;
+  }
+
+  .cards {
+    margin-left: 50px;
   }
 
   .weather-container-left {
-    margin-left: 0%;
+    text-align: center;
+    float: none;
   }
 
   .weather-container-right {
-    margin-left: -50px;
+    text-align: center;
+    float: none;
+  }
+
+  .three {
+    margin-top: 10px;
+    color: azure;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+  }
+
+  .five {
+    text-align: center;
+    align-items: center;
+    align-content: center;
   }
 }
