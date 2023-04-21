@@ -17,7 +17,7 @@
 
 ## Description
 
-A weather app in vanilla JavaScript that uses the Open Weather Map API to check the current weather and forecast and reads events from Local Storage.
+A weather app in vanilla JavaScript that uses the Open Weather Map API to check the current weather and forecast data and re renders events from Local Storage.
 
 ## API
 - <a href="https://openweathermap.org/" >OpenWeatherMap</a>
